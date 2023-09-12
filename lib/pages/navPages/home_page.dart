@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:learning_demo/misc/colors.dart';
 import 'package:learning_demo/widgets/app_large_text.dart';
 
 class HomePage extends StatefulWidget {
@@ -8,9 +9,10 @@ class HomePage extends StatefulWidget {
   State<HomePage> createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    TabController _tabController = TabController(length: 3, vsync: this);
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,12 +48,63 @@ class _HomePageState extends State<HomePage> {
           SizedBox(
             height: 30,
           ),
-          //tabBar
-          // Container(
-          //   child: TabBar(tabs: []),
-          // )
+          // tabBar
+          Container(
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: TabBar(
+                  labelPadding: const EdgeInsets.only(left: 20, right: 30),
+                  labelColor: Colors.black,
+                  unselectedLabelColor: Colors.grey,
+                  controller: _tabController,
+                  isScrollable: true,
+                  dividerColor: Colors.white,
+                  indicator:
+                      CircleTabIndicator(color: AppColors.mainColor, radius: 4),
+                  tabs: [
+                    Tab(text: "places"),
+                    Tab(text: "Inspirations"),
+                    Tab(text: "Emotions"),
+                  ]),
+            ),
+          ),
+          Container(
+            height: 300,
+            width: double.maxFinite,
+            child: TabBarView(
+                controller: _tabController,
+                children: [Text("Hi"), Text("There"), Text("bye")]),
+          )
         ],
       ),
     );
+  }
+}
+
+class CircleTabIndicator extends Decoration {
+  final Color color;
+  double radius;
+  CircleTabIndicator({required this.color, required this.radius});
+  @override
+  BoxPainter createBoxPainter([VoidCallback? onChanged]) {
+    // TODO: implement createBoxPainter
+    return _CirclePainter(color: color, radius: radius);
+  }
+}
+
+class _CirclePainter extends BoxPainter {
+  final Color color;
+  double radius;
+  _CirclePainter({required this.color, required this.radius});
+  @override
+  void paint(Canvas canvas, Offset offset, ImageConfiguration configuration) {
+    // TODO: implement paint
+    final Offset circleOffset = Offset(
+        configuration.size!.width / 2 - radius / 2,
+        configuration.size!.height - radius);
+    Paint _paint = Paint();
+    _paint.color = color;
+    _paint.isAntiAlias = true;
+    canvas.drawCircle(offset + circleOffset, radius, _paint);
   }
 }
