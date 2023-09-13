@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:learning_demo/misc/colors.dart';
+import 'package:learning_demo/widgets/app_button.dart';
 import 'package:learning_demo/widgets/app_large_text.dart';
 import 'package:learning_demo/widgets/app_text.dart';
+import 'package:learning_demo/widgets/responsiveButton.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key});
@@ -12,6 +14,7 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   int gottenStar = 3;
+  int selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -130,15 +133,60 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                     Wrap(
                       children: List.generate(5, (index) {
-                        return Container(
-                          margin: const EdgeInsets.only(right: 10),
-                          width: 60,
-                          height: 60,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15),
-                              color: AppColors.buttonBackground),
+                        return AppButton(
+                          isText: true,
+                          onPressedFunction: () {
+                            setState(() {
+                              selectedIndex = index;
+                            });
+                          },
+                          text: '${index + 1}',
+                          mainColor: selectedIndex == index
+                              ? Colors.white
+                              : AppColors.mainColor,
+                          backGroundColor: selectedIndex == index
+                              ? Colors.black.withOpacity(0.8)
+                              : AppColors.buttonBackground,
                         );
                       }),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    AppLargeText(
+                      text: 'Description',
+                      size: 20,
+                      color: Colors.black.withOpacity(0.8),
+                    ),
+                    Container(
+                      child: AppText(
+                          size: 15,
+                          text:
+                              'Yosemite National Park is Located in Central Pune in the state of maharastra in India. IT is located near the wild protected areas.'),
+                    ),
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        AppButton(
+                          isText: false,
+                          onPressedFunction: () {},
+                          icon: Icons.favorite_border_outlined,
+                          backGroundColor: AppColors.buttonBackground,
+                        ),
+                        ResponiveButton(
+                          isResponsive: true,
+                          width: 250,
+                          isText: true,
+                          text: 'Book Trip Now',
+                          textStyle: TextStyle(
+                            fontSize: 16,
+                            color: Colors.white,
+                          ),
+                        )
+                      ],
                     )
                   ],
                 ),
