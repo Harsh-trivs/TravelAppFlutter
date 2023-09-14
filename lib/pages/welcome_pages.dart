@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:learning_demo/misc/colors.dart';
+import 'package:learning_demo/pages/NavPages/main_page.dart';
+import 'package:learning_demo/pages/navPages/home_page.dart';
 import 'package:learning_demo/widgets/app_large_text.dart';
 import 'package:learning_demo/widgets/app_text.dart';
 import 'package:learning_demo/widgets/responsiveButton.dart';
@@ -59,8 +61,15 @@ class _WelcomePageState extends State<WelcomePage> {
                         SizedBox(
                           height: 40,
                         ),
-                        ResponiveButton(
-                          width: 120,
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => MainPage()));
+                          },
+                          child: ResponiveButton(
+                            width: 120,
+                            isText: false,
+                          ),
                         ),
                       ],
                     ),

@@ -4,7 +4,7 @@ import 'package:learning_demo/misc/colors.dart';
 class ResponiveButton extends StatelessWidget {
   bool? isResponsive;
   double? width;
-  bool? isText;
+  bool isText = false;
   String? text;
   TextStyle? textStyle;
 
@@ -12,7 +12,7 @@ class ResponiveButton extends StatelessWidget {
       {super.key,
       this.width,
       this.isResponsive = false,
-      this.isText,
+      required this.isText,
       this.textStyle,
       this.text});
 
@@ -24,9 +24,9 @@ class ResponiveButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(10), color: AppColors.mainColor),
       height: 60,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          isText!
+          isText
               ? Container(
                   margin: EdgeInsets.only(left: 20),
                   child: Text(
@@ -34,10 +34,14 @@ class ResponiveButton extends StatelessWidget {
                     style: textStyle,
                   ),
                 )
-              : SizedBox(height: 0, width: 0),
+              : SizedBox(),
           Container(
             margin: EdgeInsets.only(right: 20),
+            padding: EdgeInsets.only(right: 20),
             child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+              SizedBox(
+                width: 20,
+              ),
               Icon(
                 Icons.arrow_forward_ios_outlined,
                 color: Colors.white,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learning_demo/misc/colors.dart';
+import 'package:learning_demo/pages/detail_page.dart';
 import 'package:learning_demo/widgets/app_large_text.dart';
 import 'package:learning_demo/widgets/app_text.dart';
 
@@ -89,16 +90,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   itemCount: 3,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: const EdgeInsets.only(right: 10, top: 10),
-                      width: 200,
-                      height: 300,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          color: Colors.white,
-                          image: DecorationImage(
-                              image: AssetImage(cardImages[index]),
-                              fit: BoxFit.cover)),
+                    return InkWell(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => DetailPage()));
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.only(right: 10, top: 10),
+                        width: 200,
+                        height: 300,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            color: Colors.white,
+                            image: DecorationImage(
+                                image: AssetImage(cardImages[index]),
+                                fit: BoxFit.cover)),
+                      ),
                     );
                   }),
             ]),
