@@ -14,7 +14,8 @@ class DetailPage extends StatefulWidget {
 
 class _DetailPageState extends State<DetailPage> {
   int gottenStar = 3;
-  int selectedIndex = 0;
+  int selectedIndex = -1;
+  bool isLiked = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,20 +134,22 @@ class _DetailPageState extends State<DetailPage> {
                     ),
                     Wrap(
                       children: List.generate(5, (index) {
-                        return AppButton(
-                          isText: true,
-                          onPressedFunction: () {
+                        return InkWell(
+                          onTap: () {
                             setState(() {
                               selectedIndex = index;
                             });
                           },
-                          text: '${index + 1}',
-                          mainColor: selectedIndex == index
-                              ? Colors.white
-                              : AppColors.mainColor,
-                          backGroundColor: selectedIndex == index
-                              ? Colors.black.withOpacity(0.8)
-                              : AppColors.buttonBackground,
+                          child: AppButton(
+                            isText: true,
+                            text: '${index + 1}',
+                            mainColor: selectedIndex == index
+                                ? Colors.white
+                                : AppColors.mainColor,
+                            backGroundColor: selectedIndex == index
+                                ? Colors.black.withOpacity(0.8)
+                                : AppColors.buttonBackground,
+                          ),
                         );
                       }),
                     ),
@@ -170,11 +173,22 @@ class _DetailPageState extends State<DetailPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        AppButton(
-                          isText: false,
-                          onPressedFunction: () {},
-                          icon: Icons.favorite_border_outlined,
-                          backGroundColor: AppColors.buttonBackground,
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              if (isLiked == true)
+                                isLiked = false;
+                              else
+                                isLiked = true;
+                            });
+                          },
+                          child: AppButton(
+                            isText: false,
+                            icon: isLiked
+                                ? Icons.favorite
+                                : Icons.favorite_border_outlined,
+                            backGroundColor: AppColors.buttonBackground,
+                          ),
                         ),
                         ResponiveButton(
                           isResponsive: true,
