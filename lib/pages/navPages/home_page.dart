@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:learning_demo/misc/colors.dart';
+import 'package:learning_demo/pages/balloning_options.dart';
 import 'package:learning_demo/pages/detail_page.dart';
 import 'package:learning_demo/widgets/app_large_text.dart';
 import 'package:learning_demo/widgets/app_text.dart';
@@ -141,34 +142,40 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 scrollDirection: Axis.horizontal,
                 itemCount: 4,
                 itemBuilder: (_, index) {
-                  return Container(
-                    margin: const EdgeInsets.only(right: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Container(
-                          //margin: const EdgeInsets.only(right: 20),
-                          width: 80,
-                          height: 80,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
-                              image: DecorationImage(
-                                  image: AssetImage(
-                                      iconImages.values.elementAt(index)),
-                                  fit: BoxFit.cover)),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Container(
-                          child: AppText(
-                            text: iconImages.keys.elementAt(index),
-                            color: AppColors.textColor2,
-                            size: 12,
+                  return InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => BalloningPage()));
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(right: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            //margin: const EdgeInsets.only(right: 20),
+                            width: 80,
+                            height: 80,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.white,
+                                image: DecorationImage(
+                                    image: AssetImage(
+                                        iconImages.values.elementAt(index)),
+                                    fit: BoxFit.cover)),
                           ),
-                        )
-                      ],
+                          SizedBox(
+                            height: 5,
+                          ),
+                          Container(
+                            child: AppText(
+                              text: iconImages.keys.elementAt(index),
+                              color: AppColors.textColor2,
+                              size: 12,
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   );
                 }),
